@@ -219,7 +219,7 @@ module Sender = {
       position(relative),
       bottom(zero),
       display(`flex),
-      backgroundColor(hex("f4f7f9")),
+      backgroundColor(white),
       borderBottomLeftRadius(px(10)),
       borderBottomRightRadius(px(10)),
       transitionList([
@@ -279,8 +279,9 @@ module Sender = {
       width(px(100)),
       position(absolute),
       right(px(30)),
+      backgroundColor(white),
       height(`percent(100.0)),
-      display(`flex)
+      display(`flex),
     ])
 
   let userInputButton =
@@ -290,6 +291,7 @@ module Sender = {
       paddingLeft(px(3)),
       paddingRight(px(3)),
       display(`flex),
+      backgroundColor(white),
       flexDirection(column),
       justifyContent(center),
       firstOfType([
@@ -308,7 +310,7 @@ module Sender = {
 
   let iconFileMessage = 
     style([
-      marginRight(px(5))
+      marginRight(px(5)) 
     ]);
 
   let userInputButtonLabel = 
@@ -318,6 +320,18 @@ module Sender = {
       paddingLeft(px(3)),
       cursor(`pointer)
     ]);
+
+  let deleteFileMessage =
+    style([
+      fontStyle(normal),
+      float(`right),
+      cursor(`pointer),
+      color(hex("c8cad0")),
+      hover([
+        color(hex("5d5e6d"))
+      ])
+    ]);
+
 
   
 
@@ -331,20 +345,24 @@ module Icons = {
       width(px(20)),
       cursor(`pointer),
       alignSelf(center),
-      outlineStyle(none)
+      SVG.fill(rgba(86, 88, 103, 0.3)),
+      outlineStyle(none),
+      hover([
+        SVG.fill(rgba(86, 88, 103, 1.0))
+      ])
     ]);
 
     let emojiIcon = 
       style([
         height(px(18)),
         cursor(`pointer), 
-        alignSelf(center)
+        SVG.fill(rgba(86, 88, 103, 0.3)),
+        alignSelf(center),
+        hover([
+          SVG.fill(rgba(86, 88, 103, 1.0))
+        ])
   ]);
 
-  let emojiIconPathCircle = 
-    style([
-      SVG.fill(rgba(86, 88, 103, 0.3))
-    ]);
 
     let iconWrapper = 
     style([
@@ -352,7 +370,7 @@ module Icons = {
       borderStyle(none), 
       padding(px(0)),
       margin(px(0)),
-      outlineStyle(none)
+      outlineStyle(none),
     ]);
 
     let emojiIconWrapper = 

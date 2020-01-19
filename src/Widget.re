@@ -11,6 +11,10 @@ module WidgetLayout = {
     ~toggleChat, 
     ~showCloseButton, 
     ~titleAvatar, 
+    ~showEmoji,
+    ~showFile,
+    ~toggleEmoji,
+    ~toggleFile,
     ~profileAvatar,
     ~onSendMessage,
     ~senderPlaceHolder,
@@ -42,6 +46,10 @@ module WidgetLayout = {
           subtitle={subtitle} 
           toggleChat={toggleChat} 
           showCloseButton={showCloseButton} 
+          showEmoji={showEmoji}
+          showFile={showFile}
+          toggleEmoji={toggleEmoji}
+          toggleFile={toggleFile}
           titleAvatar={titleAvatar}  
           profileAvatar={profileAvatar} 
           sendMessage={onSendMessage} 
@@ -74,6 +82,10 @@ let make = (
   ~onSendMessage: (string, ReactEvent.Mouse.t ) => unit,
   ~onToggleConversation: ReactEvent.Mouse.t => unit,
   ~profileAvatar: option(string), 
+  ~showEmoji:bool,
+  ~showFile:bool,
+  ~toggleEmoji,
+  ~toggleFile,
   ~senderPlaceHolder: string,
   ~showChat: bool, 
   ~showCloseButton: bool, 
@@ -93,6 +105,10 @@ let make = (
     toggleTyping={toggleTyping}
     toggleChat={toggleChat}
     showChat={showChat}
+    showEmoji={showEmoji}
+    showFile={showFile}
+    toggleEmoji={toggleEmoji}
+    toggleFile={toggleFile}
     messages={messages}
     titleAvatar={titleAvatar}
     subtitle={subtitle}

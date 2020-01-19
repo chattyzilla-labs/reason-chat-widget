@@ -6,13 +6,17 @@ module Chat = {
 type action =
 | ToggleConvo
 | SendMessage(string)
-| ToggleIsTyping(bool);
+| ToggleIsTyping(bool)
+| ToggleEmoji(bool)
+| ToggleFile(bool)
 
 type state = {
 _open: bool,
 unread:int,
 messages: list(ReasonReact.reactElement),
-typing: bool
+typing: bool,
+showEmoji: bool,
+showFile: bool
 };
 
 let deco_UTF8: string => string = [%raw
@@ -27,8 +31,10 @@ let make = () => {
       | ToggleConvo => {...state, _open: state._open ? false : true, unread: 0}
       | SendMessage(str) => {...state, messages: List.append(state.messages, [ <div style={ReactDOMRe.Style.make(~width="100%", ~textAlign="right", ())}>{React.string(str)}</div>])}
       | ToggleIsTyping(bool) => {...state, typing: bool}
+      | ToggleEmoji(bool) => {...state, showEmoji: bool}
+      | ToggleFile(bool) => {...state, showFile: bool}
       },
-    {_open: false, typing: false, unread: 4, 
+    {_open: true, typing: false, unread: 4, showEmoji:false, showFile: false, 
       messages:[<div>{React.string("hey, what's up man?")}</div>,
                 <div>{React.string("nothing much, you?")}</div>  ]}
   );
@@ -46,9 +52,13 @@ toggleTyping={(bool) => dispatch(ToggleIsTyping(bool))}
 title="Jeff Hoffman"
 typing={state.typing}
 toggleChat={(_) => dispatch(ToggleConvo)}
+toggleEmoji={(bool) => dispatch(ToggleEmoji(bool))}
+toggleFile={(bool) => dispatch(ToggleFile(bool))}
 showChat={state._open}
 messages={state.messages}
 titleAvatar=b
+showEmoji={state.showEmoji}
+showFile={state.showFile}
 subtitle=""
 senderPlaceHolder="Write a reply..."
 profileAvatar={Some(b)}

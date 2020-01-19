@@ -135,35 +135,38 @@ open Styles;
         open Styles.Sender;
 
        [@react.component] 
-       let make = (~disabledInput, ~placeholder, ~autofocus, ~sendMessage, ~toggleTyping, ~typing) => {
+       let make = (~disabledInput, ~placeholder, ~autofocus, ~sendMessage, ~toggleTyping, ~typing, ~showEmoji, ~showFile, ~toggleEmoji, ~toggleFile) => {
 
-        let (input, setInput) = React.useState(() => ""); 
+        let text = React.useRef("");
 
         <div>
-        //  {
-        //     this.state.file && 
-        //    <div className="file-container" >
-        //      <span className="icon-file-message"><img src="/assets/file.svg" alt="" height="15px" /></span>
-        //        {this.state.file && this.state.file.name} */
-        //       <span className="delete-file-message" onClick={() => this.setState({ file: null })} ><img src={closeIcon} alt="close icon" height={10} title="Remove the file" /></span> */
-        //     </div>
-        //  }
+          {
+            showFile ? 
+            <div className={fileContainer} >
+             <span className={iconFileMessage}><img src="/assets/file.svg" alt="" height="30" /></span>
+               <span className={deleteFileMessage} onClick={(_) => toggleFile(false)}  ><img src="/assets/close.svg" alt="" height="10" title="Remove the file" /></span> 
+            </div>            
+               : React.null
+          }
+          
           <form className={userInput}>
          
-           <div
+           <input
              role="button"
              tabIndex=0
              onFocus={(_) => toggleTyping(true)}
              onBlur={(_) => toggleTyping(false)} 
-             //ref={(e) => input = e}
+             /* ref={ReactDOMRe.Ref.callbackDomRef(_ =>
+              React.Ref.(text->setCurrent(text->current)))} */
              //onKeyDown={this.handleKey}
              //onKeyPress={this.handleKeyPress}
-             //onChange={event => setInput(ReactEvent.target(event)##value)} 
+             //ref={ReactDOMRe.refGet(text)}
+             onChange={e => React.Ref.(text->setCurrent(ReactEvent.Form.target(e)##value))} 
              placeholder="Type a message..."
              contentEditable=true
              className={userInputText}
            >
-           </div>
+           </input>
            <div className={inputButtons}>
              <div className={userInputButton}></div>
              
@@ -172,13 +175,16 @@ open Styles;
                 {Svg.emojiIcon}
              </div>
              { 
-               //this.props.showFile &&
-                <div className={userInputButton}>
+
+                <div className={userInputButton} onClick={(_) => toggleFile(true)}>
                {Svg.fileIcon} 
                  /* <FileIcons onChange={(file) => this._handleFileSubmit(file)} /> */
                 </div>
              }
-             <div className={userInputButton}  onClick={(e) => sendMessage(input, e)}>
+             <div className={userInputButton}  onClick={(e) => {
+               sendMessage(React.Ref.current(text), e)
+               React.Ref.setCurrent(text, "")
+              }}>
              {Svg.sendIcon}
                // <SendIcon onClick={this._submitText.bind(this)} /> 
               </div>
@@ -200,13 +206,17 @@ open Styles;
         ~showCloseButton:bool, 
         ~titleAvatar:string, 
         ~profileAvatar,
+        ~showEmoji,
+        ~showFile,
         ~sendMessage: (string, ReactEvent.Mouse.t ) => unit,
         ~senderPlaceHolder:string,
         ~disabledInput:bool,
         ~autofocus:bool,
         ~messages,
         ~typing,
-        ~toggleTyping, 
+        ~toggleTyping,
+        ~toggleEmoji: bool => unit,
+        ~toggleFile, 
         ~fullScreenMode ) => {  
 
         open Styles.Conversation;
@@ -226,6 +236,10 @@ open Styles;
             disabledInput={disabledInput}
             placeholder={senderPlaceHolder}
             autofocus={autofocus}
+            showEmoji={showEmoji}
+            showFile={showFile}
+            toggleFile={toggleFile}
+            toggleEmoji={toggleEmoji}
             sendMessage={sendMessage}
             toggleTyping={toggleTyping}
             typing={typing}
