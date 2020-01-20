@@ -205,10 +205,17 @@ let closeButtonImage = style([
 
 
 };
-module Messages = {};
+module Messages = {
+
+  let messageText = style([
+    width(px(300)),
+    margin(auto),
+    paddingBottom(px(10)),
+    display(`flex)
+
+  ])
+};
 module Loader = {};
-module Message = {};
-module Snippet = {};
 
 module Sender = {
 

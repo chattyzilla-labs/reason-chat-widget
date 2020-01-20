@@ -32,7 +32,7 @@ open Styles;
 
     module Messages = {
 
-
+      open Styles.Messages;
        
 
         module Loader = {
@@ -74,32 +74,6 @@ open Styles;
 
         };
 
-        module Message = {
-
-        [%mui.withStyles
-          "MessageStyle"({ 
-            rcwClient: ReactDOMRe.Style.make(~marginLeft="auto", ~backgroundColor="#a3eaf7", ~borderRadius="10px", ~padding="15px", ~maxWidth="215px", ~textAlign="left", ()), 
-            rcwResponse: ReactDOMRe.Style.make(~backgroundColor="#f4f7f9", ~borderRadius="10px", ~padding="15px", ~maxWidth="215px", ~textAlign="left", ()),
-            rcwAvatar: ReactDOMRe.Style.make(~width="40px", ~height="40px", ~borderRadius="100%", ~marginRight="10px", ()), 
-            rcwMessage: ReactDOMRe.Style.make(~margin="10px", ~display="flex", ~wordWrap="break-word", ()),
-          })
-        ];
-
-            [@bs.module "../sanitizeHtml"] external sanitizedHTML: string => string = "default";
-
-            //message function
-            [@react.component]
-            let make = (~message:string, ~sender) => {
-                let senderstr = Printf.sprintf("rcw-%s", sender);
-                <div>
-               <div dangerouslySetInnerHTML={{ "__html": sanitizedHTML(message) }} />
-                </div>
-            
-                  
-
-            };
-
-        };
 
 
         //Messages function
@@ -110,7 +84,7 @@ open Styles;
           ...{classes => 
             <div id="messages" className={classes.rcwMessagesContainer} > 
             {messages |> List.mapi((i, message) =>
-              <div className={classes.rcwMessage} key={string_of_int(i)}>
+              <div className={messageText} key={string_of_int(i)}>
 
               {switch (profileAvatar) {
               | Some(avatar) => <img src={avatar} className={classes.rcwAvatar} alt="profile" />
