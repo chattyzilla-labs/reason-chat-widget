@@ -33,7 +33,7 @@ open Styles;
     module Messages = {
 
       open Styles.Messages;
-       
+
 
         module Loader = {
 
@@ -73,8 +73,6 @@ open Styles;
             };
 
         };
-
-
 
         //Messages function
         [@react.component] 
@@ -144,6 +142,7 @@ open Styles;
            <div className={inputButtons}>
              <div className={userInputButton}></div>
              
+             //choose to show emoji window or not
              <div className={userInputButton}> 
                 //{this.props.showEmoji && <EmojiIcon onEmojiPicked={this._handleEmojiPicked.bind(this)} />} 
                 {Svg.emojiIcon}

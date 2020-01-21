@@ -35,8 +35,8 @@ let make = () => {
       | ToggleFile(bool) => {...state, showFile: bool}
       },
     {_open: true, typing: false, unread: 4, showEmoji:false, showFile: false, 
-      messages:[<div>{React.string("hey, what's up man?")}</div>,
-                <div>{React.string("nothing much, you?")}</div>  ]}
+      messages:[<div className={Styles.Messages.messageText}>{React.string(deco_UTF8(winking_face))}</div>,
+                <div className={Styles.Messages.messageText}>{React.string("nothing much, you?")}</div>  ]}
   );
 
   let a = (_, child) => <div>{child}</div>;
