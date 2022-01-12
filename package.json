@@ -21,7 +21,7 @@
     "@material-ui/core": "^4.8.3",
     "@material-ui/styles": "^4.8.2",
     "bs-css": "^11.0.0",
-    "markdown-it": "^10.0.0",
+    "markdown-it": "^12.3.2",
     "markdown-it-link-attributes": "^3.0.0",
     "markdown-it-sanitizer": "^0.4.3",
     "markdown-it-sup": "^1.0.0",
